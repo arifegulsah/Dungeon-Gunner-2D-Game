@@ -7,12 +7,15 @@ public class RoomNodeGraphEditor : EditorWindow
 {
     private GUIStyle roomNodeStyle;
     private static RoomNodeGraphSO currentRoomNodeGraph;
+    private RoomNodeSO currentRoomNode = null;
     private RoomNodeTypeListSO roomNodeTypeList;
 
     private const float nodeWidth = 160f;
     private const float nodeHeight = 75f;
     private const int nodePadding = 25;
     private const int nodeBorder = 12;
+
+    private const float connectingLineWidth = 3f;
 
     //Bu noktadan itibaren kendimize has bir editor penceresi yapýyoruz.
     //Amacýmýz bu script yardýmý ile oluþturdugumuz pencere ile zindanda bulunacak olan odalarýmýzý ayarlamak.
@@ -65,6 +68,8 @@ public class RoomNodeGraphEditor : EditorWindow
         //Herhangibir roomnodegraphso seçildiyse eðer iþleme devam edelim ve windowa çizdirelim.
         if(currentRoomNodeGraph != null)
         {
+            DrawDraggedLine();
+
             ProcessEvents(Event.current);
 
             DrawRoomNodes();
@@ -74,9 +79,29 @@ public class RoomNodeGraphEditor : EditorWindow
             Repaint();
     }
 
+    private void DrawDraggedLine()
+    {
+        if(currentRoomNodeGraph.linePosition != Vector2.zero)
+        {
+            Handles.DrawBezier(currentRoomNodeGraph.roomNodeToDrawLineFrom.rect.center, currentRoomNodeGraph.linePosition, 
+                currentRoomNodeGraph.roomNodeToDrawLineFrom.rect.center, currentRoomNodeGraph.linePosition, Color.white, null, connectingLineWidth);
+        }
+    }
+
     private void ProcessEvents(Event currentEvent)
     {
-        ProcessRoomNodeGraphEvents(currentEvent);
+        if(currentRoomNode == null || currentRoomNode.isLeftClickDragging == false)
+        {
+            currentRoomNode = IsMouseOverRoomNode(currentEvent); //mouse herhangi bir room nodeun üzerinde mi deðil mi kontrol edelim
+        }
+        if(currentRoomNode == null || currentRoomNodeGraph.roomNodeToDrawLineFrom != null)
+        {
+            ProcessRoomNodeGraphEvents(currentEvent);
+        }
+        else
+        {
+            currentRoomNode.ProcessEvents(currentEvent);
+        }
     }
 
     private void ProcessRoomNodeGraphEvents(Event currentEvent)
@@ -87,9 +112,29 @@ public class RoomNodeGraphEditor : EditorWindow
                 ProcessMouseDownEvent(currentEvent);
                 break;
 
+            case EventType.MouseUp:
+                ProcessMouseUpEvent(currentEvent);
+                break;
+
+            case EventType.MouseDrag:
+                ProcessMouseDragEvent(currentEvent);
+                break;
+
             default:
                 break;
         }
+    }
+
+    private RoomNodeSO IsMouseOverRoomNode(Event currentEvent)
+    {
+        for(int i = currentRoomNodeGraph.roomNodeList.Count - 1; i >= 0; i--)
+        {
+            if (currentRoomNodeGraph.roomNodeList[i].rect.Contains(currentEvent.mousePosition))
+            {
+                return currentRoomNodeGraph.roomNodeList[i];
+            }
+        }
+        return null;
     }
 
     private void ProcessMouseDownEvent(Event currentEvent)
@@ -123,6 +168,43 @@ public class RoomNodeGraphEditor : EditorWindow
         AssetDatabase.AddObjectToAsset(roomNode, currentRoomNodeGraph);
 
         AssetDatabase.SaveAssets();
+    }
+
+    private void ProcessMouseUpEvent(Event currentEvent)
+    {
+        if(currentEvent.button == 1 && currentRoomNodeGraph.roomNodeToDrawLineFrom != null)
+        {
+            ClearLineDrag();
+        }
+    }
+
+    private void ProcessMouseDragEvent(Event currentEvent)
+    {
+        if(currentEvent.button == 1)
+        {
+            ProcessRightMouseDragEvent(currentEvent);
+        }
+    }
+
+    private void ProcessRightMouseDragEvent(Event currentEvent)
+    {
+        if (currentRoomNodeGraph.roomNodeToDrawLineFrom != null)
+        {
+            DragConnectionLine(currentEvent.delta);
+            GUI.changed = true;
+        }
+    }
+
+    public void DragConnectionLine(Vector2 delta)
+    {
+        currentRoomNodeGraph.linePosition += delta;
+    }
+
+    private void ClearLineDrag()
+    {
+        currentRoomNodeGraph.roomNodeToDrawLineFrom = null;
+        currentRoomNodeGraph.linePosition = Vector2.zero;
+        GUI.changed = true;
     }
 
     private void DrawRoomNodes()
