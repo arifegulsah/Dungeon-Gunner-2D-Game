@@ -10,6 +10,32 @@ public class RoomNodeGraphSO : ScriptableObject
     [HideInInspector] public List<RoomNodeSO> roomNodeList = new List<RoomNodeSO>();
     [HideInInspector] public Dictionary<string, RoomNodeSO> roomNodeDictionary = new Dictionary<string, RoomNodeSO>();
 
+    private void Awake()
+    {
+        LoadRoomNodeDictionary();
+    }
+
+    private void LoadRoomNodeDictionary()
+    {
+        roomNodeDictionary.Clear();
+
+        foreach (RoomNodeSO node in roomNodeList)
+        {
+            roomNodeDictionary[node.id] = node;
+        }
+    }
+
+
+    public RoomNodeSO GetRoomNode(string roomNodeID)
+    {
+        if (roomNodeDictionary.TryGetValue(roomNodeID, out RoomNodeSO roomNode))
+        {
+            return roomNode;
+        }
+        return null;
+    }
+
+
     //bu noktadan itibaren connection lines yapabilmek için func vereceðiz
     #region Editor Code
 
@@ -17,6 +43,11 @@ public class RoomNodeGraphSO : ScriptableObject
 
     [HideInInspector] public RoomNodeSO roomNodeToDrawLineFrom = null; //baðlantý çizgisini baþlattýgýmýz node.
     [HideInInspector] public Vector2 linePosition;
+
+    public void OnValidate()
+    {
+        LoadRoomNodeDictionary();
+    }
 
     public void SetNodeToConnectionLineFrom(RoomNodeSO node, Vector2 position)
     {

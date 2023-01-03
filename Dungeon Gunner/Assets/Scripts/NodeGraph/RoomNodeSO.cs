@@ -23,7 +23,7 @@ public class RoomNodeSO : ScriptableObject
     public void Initialise(Rect rect, RoomNodeGraphSO nodeGraph, RoomNodeTypeSO roomNodeType)
     {
         this.rect = rect;
-        this.id = Guid.NewGuid().ToString();
+        this.id = Guid.NewGuid().ToString(); //otomatik idler oluþturmaya yarýyor.
         this.name = "RoomNode";
         this.roomNodeGraph = nodeGraph;
         this.roomNodeType = roomNodeType;
@@ -36,11 +36,18 @@ public class RoomNodeSO : ScriptableObject
         GUILayout.BeginArea(rect, nodeStyle);
         EditorGUI.BeginChangeCheck();
 
-        int selected = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
+        if (parentRoomNodeIDList.Count > 0 || roomNodeType.isEntrance)
+        {
+            EditorGUILayout.LabelField(roomNodeType.roomNodeTypeName);
+        }
+        else
+        {
+            int selected = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
 
-        int selection = EditorGUILayout.Popup("", selected, GetRoomNodeTypesToDisplay());
-        
-        roomNodeType = roomNodeTypeList.list[selection];
+            int selection = EditorGUILayout.Popup("", selected, GetRoomNodeTypesToDisplay()); //pop up aslýnda dropdown demek burda
+
+            roomNodeType = roomNodeTypeList.list[selection];
+        }
 
         if(EditorGUI.EndChangeCheck())
             EditorUtility.SetDirty(this);
@@ -149,6 +156,92 @@ public class RoomNodeSO : ScriptableObject
     {
         rect.position += delta;
         EditorUtility.SetDirty(this);
+    }
+
+    public bool AddChildRoomNodeIDToRoomNode(string childID)
+    {
+        if (IsChildRoomValid(childID))
+        {
+            childRoomNodeIDList.Add(childID);
+            return true;
+        }
+        return false;
+    }
+
+    public bool IsChildRoomValid(string childID)
+    {
+        bool isConnectedBossNodeAlready = false;
+
+        foreach (RoomNodeSO roomNode in roomNodeGraph.roomNodeList)
+        {
+            if (roomNode.roomNodeType.isBossRoom && roomNode.parentRoomNodeIDList.Count > 0)
+            {
+                isConnectedBossNodeAlready = true;
+            }
+
+            if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isBossRoom && isConnectedBossNodeAlready)
+            {
+                return false;
+            }
+
+            if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isNone)
+            {
+                return false;
+            }
+
+            if (childRoomNodeIDList.Contains(childID))
+            {
+                return false;
+            }
+
+            if (id == childID)
+            {
+                return false;
+            }
+
+            if (parentRoomNodeIDList.Contains(childID))
+            {
+                return false;
+            }
+
+            if (roomNodeGraph.GetRoomNode(childID).parentRoomNodeIDList.Count > 0)
+            {
+                return false;
+            }
+
+            if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && roomNodeType.isCorridor)
+            {
+                return false;
+            }
+
+            if (!roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && !roomNodeType.isCorridor)
+            {
+                return false;
+            }
+
+            if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && childRoomNodeIDList.Count >= Settings.maxChildCorridors)
+            {
+                return false;
+            }
+
+            if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isEntrance)
+            {
+                return false;
+            }
+
+            if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && childRoomNodeIDList.Count > 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public bool AddParentRoomNodeIDToRoomNode(string parentID)
+    {
+        parentRoomNodeIDList.Add(parentID);
+        return true;
     }
 
 #endif
