@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1196a1593d603f84387e27939ae4240d, type: 3}
+  m_Name: DungeonLevel_Level1
+  m_EditorClassIdentifier: 
+  levelName: Fairy Tomb
+  roomTemplateList:
+  - {fileID: 11400000, guid: c13f6a336e8094d4d85925c025a1582f, type: 2}
+  - {fileID: 11400000, guid: f5a7359da4359ff4bb7b178f802e3921, type: 2}
+  - {fileID: 11400000, guid: 8a82beb2005ffbb489d531005374aec6, type: 2}
+  - {fileID: 11400000, guid: 794031584ff452346a1546a6b9d168d4, type: 2}
+  - {fileID: 11400000, guid: eb235b0ca56c41b4e88da6e089bc42a0, type: 2}
+  - {fileID: 11400000, guid: 1caa48743ac92e941b4d45ffbf99f805, type: 2}
+  - {fileID: 11400000, guid: 615e9d75b3d520c4fb32eed72b6f82c8, type: 2}
+  - {fileID: 11400000, guid: ea35be7949a2ef64eb22e592e3393451, type: 2}
+  roomNodeGraphList:
+  - {fileID: 11400000, guid: 7d1ab0a1202f0e348b04cc0548ccdbfc, type: 2}
+  - {fileID: 11400000, guid: 10a9eee25a4959c4fb1a1e3409b36dfd, type: 2}
+  - {fileID: 11400000, guid: 89dad6dd4d8b57245883c9808c5b266d, type: 2}
+  - {fileID: 11400000, guid: 78fb4441329192d4093641a3e0ecb0a8, type: 2}
+  - {fileID: 11400000, guid: 469fbd00e7aad8045846713ab128474a, type: 2}

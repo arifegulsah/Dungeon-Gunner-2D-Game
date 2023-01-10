@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1196a1593d603f84387e27939ae4240d, type: 3}
+  m_Name: DungeonLevel_Level2
+  m_EditorClassIdentifier: 
+  levelName: The Dark After The Silence Of Death
+  roomTemplateList:
+  - {fileID: 11400000, guid: b497cf51860cc124088acdf3dfcc4bdc, type: 2}
+  - {fileID: 11400000, guid: 9927e94b574775f4c83d6ac8ef1a7ea1, type: 2}
+  - {fileID: 11400000, guid: ebc7898f88cf218449b384f033e86675, type: 2}
+  - {fileID: 11400000, guid: 17aab39e60e31b44cbb99c260366f725, type: 2}
+  - {fileID: 11400000, guid: 75e9ed4d33bf76c439c799075b936c76, type: 2}
+  - {fileID: 11400000, guid: 58168ebb0df392f41b061a0c6b25da05, type: 2}
+  - {fileID: 11400000, guid: 74c9dcaed5ec2f949878a19a2067a840, type: 2}
+  - {fileID: 11400000, guid: 8560fcec9e5cd454aae62d7775c44da1, type: 2}
+  - {fileID: 11400000, guid: 44aecdcc3db913e4499e1717a8957c90, type: 2}
+  - {fileID: 11400000, guid: 03fb8e6e180566844b9c3942a093676e, type: 2}
+  - {fileID: 11400000, guid: 162bb1ef7e418cb45b8a9972883291e2, type: 2}
+  - {fileID: 11400000, guid: 441b01f46e3eeb442ade8694ca990dae, type: 2}
+  - {fileID: 11400000, guid: a513c365c6072fa4c9068779c5d2173e, type: 2}
+  - {fileID: 11400000, guid: a1c147aa88a50d64dbc012a46f5d011c, type: 2}
+  - {fileID: 11400000, guid: ffb5abf059fa3cb4187f05ee5225308f, type: 2}
+  - {fileID: 11400000, guid: 6de62b1aab2953146a354bd9e5f255d0, type: 2}
+  - {fileID: 11400000, guid: ca3ebf2399132f74589db4539c90168f, type: 2}
+  - {fileID: 11400000, guid: f7eb3d585fba40941805d195e7ca6a1f, type: 2}
+  roomNodeGraphList:
+  - {fileID: 11400000, guid: e3d966aea6316554dbc4b610dac1c800, type: 2}
+  - {fileID: 11400000, guid: f67098cc45db90541ae3ce7e19b37d33, type: 2}
+  - {fileID: 11400000, guid: bc1372129f653714c887e375f58b72c1, type: 2}
+  - {fileID: 11400000, guid: 40c33fcf3d9bdec40a2fdd6b40644920, type: 2}
+  - {fileID: 11400000, guid: 4170f6b595ac67040902a584e7106a91, type: 2}
