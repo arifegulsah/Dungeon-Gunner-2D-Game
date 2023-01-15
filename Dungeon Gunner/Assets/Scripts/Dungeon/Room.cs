@@ -13,7 +13,7 @@ public class Room : MonoBehaviour
     public Vector2Int templateLowerBounds;
     public Vector2Int templateUpperBounds;
     public Vector2Int[] spawnPositionArray;
-    public List<string> childRoolIDList;
+    public List<string> childRoomIDList;
     public string parentRoomID;
     public List<Doorway> doorWayList;
     public bool isPositioned = false;
@@ -24,7 +24,7 @@ public class Room : MonoBehaviour
 
     public Room()
     {
-        childRoolIDList = new List<string>();
+        childRoomIDList = new List<string>();
         doorWayList = new List<Doorway>();
     }
 }
