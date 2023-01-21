@@ -50,6 +50,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void PlayDungeonLevel(int dungeonLevelListIndex)
     {
+        bool dungeonBuiltSuccesfully = DungeonBuilder.Instance.GenerateDungeon(dungeonLevelList[dungeonLevelListIndex]);
+
+        if (!dungeonBuiltSuccesfully)
+        {
+            Debug.Log("Odalar ve Node Graph aracýlýðý ile Zindan oluþturulamadý!");
+        }
 
     }
 
