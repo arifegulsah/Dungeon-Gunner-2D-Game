@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+//reqiere component aracýlýðý ile bu scriptin component olarak eklendiði her bir gameobject,
+//bahsi geçen typeof(...) kýsmýndaki ... componentlerine otomatik olarak sahip olur.
+//unity arayüzü içerisinde bunu görebiliriz.
 #region GEREKLI BILESENLER - REQUIRED COMPONENTS
+[RequireComponent(typeof (Health))]
 [RequireComponent(typeof(SortingGroup))] //rendering eklenmeli namespace
 [RequireComponent(typeof (SpriteRenderer))]
 [RequireComponent(typeof (Animator))]
 [RequireComponent(typeof (BoxCollider2D))]
-[RequireComponent(typeof (PolygonCollider2D))]
+[RequireComponent(typeof (PolygonCollider2D))] //mermileri yiyip yemediðini anlamak için kullanacak oldugumuz component
 [RequireComponent(typeof (Rigidbody2D))]
 
 
