@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +77,7 @@ public class DungeonBuilder : SingletonMonoBehaviour<DungeonBuilder>
             }
             else
             {
-                Debug.Log("Duplicate Room Template Key In  " + roomTemplateList);
+                Debug.Log("Duplicate Room Template Key In, tekrar eden room tamplate " + roomTemplateList);
             }
         }
     }
@@ -93,13 +94,13 @@ public class DungeonBuilder : SingletonMonoBehaviour<DungeonBuilder>
         }
         else
         {
-            Debug.Log("No Entrance Node. Zindan üretilemiyor.");
+            Debug.Log("No Entrance Node. Zindan üretilemiyor. Giriþ odasý laýzm.");
             return false; //Zindan üretilemiyor.
         }
 
         bool noRoomOverlaps = true;
 
-        noRoomOverlaps = ProcessRoomsInOpenRoomNodeGraph(roomNodeGraph, openRoomNodeQueue, noRoomOverlaps);
+        noRoomOverlaps = ProcessRoomsInOpenRoomNodeQueue(roomNodeGraph, openRoomNodeQueue, noRoomOverlaps);
 
         if (openRoomNodeQueue.Count == 0 && noRoomOverlaps)
         {
@@ -112,7 +113,7 @@ public class DungeonBuilder : SingletonMonoBehaviour<DungeonBuilder>
     }
 
 
-    private bool ProcessRoomsInOpenRoomNodeGraph(RoomNodeGraphSO roomNodeGraph, Queue<RoomNodeSO> openRoomNodeQueue, bool noRoomOverlaps)
+    private bool ProcessRoomsInOpenRoomNodeQueue(RoomNodeGraphSO roomNodeGraph, Queue<RoomNodeSO> openRoomNodeQueue, bool noRoomOverlaps)
     {
         while (openRoomNodeQueue.Count > 0 && noRoomOverlaps == true)
         {
@@ -189,7 +190,7 @@ public class DungeonBuilder : SingletonMonoBehaviour<DungeonBuilder>
             {
                 case Orientation.north:
                 case Orientation.south:
-                    roomTemplate = GetRandomRoomTemplate(roomNodeTypeList.list.Find(x => x.isCorridor));
+                    roomTemplate = GetRandomRoomTemplate(roomNodeTypeList.list.Find(x => x.isCorridorNS));
                     break;
 
                 case Orientation.east:
@@ -386,7 +387,7 @@ public class DungeonBuilder : SingletonMonoBehaviour<DungeonBuilder>
     {
 
         Room room = new Room();
-
+        
         room.templateID = roomTemplate.guid;
         room.id = roomNode.id;
         room.prefab = roomTemplate.prefab;
@@ -430,7 +431,7 @@ public class DungeonBuilder : SingletonMonoBehaviour<DungeonBuilder>
 
     private List<Doorway> CopyDoorWayList(List<Doorway> oldDoorWayList)
     {
-        List<Doorway> newDoorWayList = new List<Doorway> ();
+        List<Doorway> newDoorWayList = new List<Doorway>();
 
         foreach (Doorway doorway in oldDoorWayList)
         {
@@ -442,8 +443,8 @@ public class DungeonBuilder : SingletonMonoBehaviour<DungeonBuilder>
             newDoorWay.isConnected = doorway.isConnected;
             newDoorWay.isUnavailable = doorway.isUnavailable;
             newDoorWay.doorwayStartCopyPosition = doorway.doorwayStartCopyPosition;
-            newDoorWay.doorwayCopyTileHeight = doorway.doorwayCopyTileHeight;
             newDoorWay.doorwayCopyTileWidth = doorway.doorwayCopyTileWidth;
+            newDoorWay.doorwayCopyTileHeight = doorway.doorwayCopyTileHeight;
 
             newDoorWayList.Add(newDoorWay);
         }
@@ -456,9 +457,9 @@ public class DungeonBuilder : SingletonMonoBehaviour<DungeonBuilder>
     {
         List<string> newStringList = new List<string>();
 
-        foreach (string s in oldStringList)
+        foreach (string stringValue in oldStringList)
         {
-            newStringList.Add(s);
+            newStringList.Add(stringValue);
         }
         return newStringList;
     }
@@ -510,7 +511,7 @@ public class DungeonBuilder : SingletonMonoBehaviour<DungeonBuilder>
 
     private void ClearDungeon()
     {
-        if(dungeonBuilderRoomDictionary.Count < 0)
+        if(dungeonBuilderRoomDictionary.Count > 0)
         {
             foreach (KeyValuePair<string, Room> keyvaluepair in dungeonBuilderRoomDictionary)
             {

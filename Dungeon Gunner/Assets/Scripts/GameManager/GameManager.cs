@@ -45,12 +45,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 gameState = GameState.playingLevel;
                 break;
         }
-
     }
 
     private void PlayDungeonLevel(int dungeonLevelListIndex)
     {
         bool dungeonBuiltSuccesfully = DungeonBuilder.Instance.GenerateDungeon(dungeonLevelList[dungeonLevelListIndex]);
+        
 
         if (!dungeonBuiltSuccesfully)
         {
