@@ -18,13 +18,22 @@ public class GameResources : MonoBehaviour
         }
     }
 
-    #region Header
+    #region Header DUNGEON
     [Header("DUNGEON")]
     #endregion
     #region Tooltip
     [Tooltip("Populate with the dungeon RoomNodeTypeListSO")]
     #endregion
     public RoomNodeTypeListSO roomNodeTypeList;
+
+    #region Header PLAYER
+    [Space(10)]
+    [Header("PLAYER")]
+    #endregion
+    #region Tooltip
+    [Tooltip("The current SO - this is used to reference the current player between scenes")]
+    #endregion
+    public CurrentPlayerSO currentPlayer;
 
     #region Header MATERIALS
     [Space(10)]
