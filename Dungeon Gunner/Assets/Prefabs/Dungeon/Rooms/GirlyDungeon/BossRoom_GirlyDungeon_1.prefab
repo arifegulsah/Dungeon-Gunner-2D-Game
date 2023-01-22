@@ -16865,7 +16865,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 49, y: 51}
+  m_Size: {x: 47, y: 47}
   m_EdgeRadius: 0
 --- !u!114 &-8504761937352629183
 MonoBehaviour:
@@ -16879,7 +16879,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a36df94d3106674fb76a50e6c8be300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  room: {fileID: 0}
   grid: {fileID: 0}
   groundTilemap: {fileID: 0}
   decoration1Tilemap: {fileID: 0}
