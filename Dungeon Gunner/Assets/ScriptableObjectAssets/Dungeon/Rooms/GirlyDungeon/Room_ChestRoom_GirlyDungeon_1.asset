@@ -36,7 +36,7 @@ MonoBehaviour:
     isConnected: 0
     isUnavailable: 0
   - position: {x: 11, y: -25}
-    orientation: 3
+    orientation: 2
     doorPrefab: {fileID: 0}
     doorwayStartCopyPosition: {x: 8, y: -19}
     doorwayCopyTileWidth: 5
