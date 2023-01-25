@@ -18,8 +18,32 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [Tooltip("Populatw with the starting dungeon level for testing, first level = 0")]
     #endregion Tooltip
     [SerializeField] private int currentDungeonLevelListIndex = 0;
+    private Room currentRoom;
+    private Room previousRoom;
+    private PlayerDetailsSO playerDetails;
+    private Player player;
 
     [HideInInspector] public GameState gameState;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        playerDetails = GameResources.Instance.currentPlayer.playerDetails;
+
+        InstantiatePlayer();
+    }
+
+    private void InstantiatePlayer()
+    {
+        //instantiate yani createle
+        GameObject playerGameObject = Instantiate(playerDetails.playerPrefab);
+
+        //initialize ilk deðeri vererek yani baslat
+        player = playerGameObject.GetComponent<Player>();
+
+        player.Initialise(playerDetails);
+    }
 
     private void Start()
     {
@@ -47,6 +71,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
     }
 
+    public void SetCurrentRoom(Room room)
+    {
+        previousRoom = currentRoom;
+        currentRoom = room;
+
+
+    }
+
     private void PlayDungeonLevel(int dungeonLevelListIndex)
     {
         bool dungeonBuiltSuccesfully = DungeonBuilder.Instance.GenerateDungeon(dungeonLevelList[dungeonLevelListIndex]);
@@ -57,8 +89,20 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             Debug.Log("Odalar ve Node Graph aracýlýðý ile Zindan oluþturulamadý!");
         }
 
+        player.gameObject.transform.position = new Vector3((currentRoom.lowerBounds.x + currentRoom.upperBounds.x) / 2f, 
+            (currentRoom.lowerBounds.y + currentRoom.upperBounds.y) / 2f, 0f);
+
+        player.gameObject.transform.position = HelperUtilities.GetSpawnPositionNearestToPlayer(player.gameObject.transform.position);
     }
 
+    public Player GetPlayer()
+    {
+        return player;
+    }
+    public Room GetCurrentRoom()
+    {
+        return currentRoom;
+    }
 
     #region Validation
 #if UNITY_EDITOR
