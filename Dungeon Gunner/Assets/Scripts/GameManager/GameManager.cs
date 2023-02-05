@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[DisallowMultipleComponent] //samegame objectlerin olusturulmasýný engelliyor
+[DisallowMultipleComponent] //same componentlerin olusturulmasýný engelliyor
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     #region Header DUNGEON LEVELS
