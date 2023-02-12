@@ -2,6 +2,7 @@
 [System.Serializable]
 public class Doorway 
 {
+    //yorum satırı
     public Vector2Int position;
     public Orientation orientation;
     public GameObject doorPrefab;
