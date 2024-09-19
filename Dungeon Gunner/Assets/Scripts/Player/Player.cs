@@ -14,6 +14,8 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof (BoxCollider2D))]
 [RequireComponent(typeof (PolygonCollider2D))] //mermileri yiyip yemediðini anlamak için kullanacak oldugumuz component
 [RequireComponent(typeof (Rigidbody2D))]
+[RequireComponent(typeof(IdleEvent))]
+[RequireComponent(typeof(AimWeaponEvent))]
 
 
 [DisallowMultipleComponent]
@@ -23,12 +25,18 @@ public class Player : MonoBehaviour
 {
     [HideInInspector] public PlayerDetailsSO playerDetails;
     [HideInInspector] public Health health;
+    [HideInInspector] public IdleEvent idleEvent;
+    [HideInInspector] public AimWeaponEvent aimWeaponEvent;
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [HideInInspector] public Animator animator;
 
     private void Awake()
     {
         health = GetComponent<Health>();
+
+        idleEvent = GetComponent<IdleEvent>();
+        aimWeaponEvent = GetComponent<AimWeaponEvent>();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
